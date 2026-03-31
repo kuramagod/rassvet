@@ -167,7 +167,7 @@ class News(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField(max_length=550)
     created_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to="static/images/products")
+    image = models.ImageField(upload_to="static/images/news")
 
     def __str__(self):
         return self.title
