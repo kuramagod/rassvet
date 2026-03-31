@@ -1,0 +1,101 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}
+О компании
+{% endblock %}
+
+{% block content %}
+<!-- Заголовок -->
+<div class="bg-primary py-20 text-white">
+	<div class="container mx-auto px-4 text-center">
+		<h1 class="text-4xl md:text-5xl font-bold mb-6">О компании ООО «РАССВЕТ»</h1>
+		<p class="text-xl max-w-2xl mx-auto text-white/90">
+			Современное сельскохозяйственное предприятие с богатой историей и взглядом в будущее.
+		</p>
+	</div>
+</div>
+
+<!-- История и Миссии -->
+<div class="container mx-auto px-4 py-16">
+	<div class="grid md:grid-cols-2 gap-16 items-center mb-20">
+		<div>
+			<h2 class="text-3xl font-bold text-gray-900 mb-6">История и Миссия</h2>
+			<p class="text-gray-600 mb-4 leading-relaxed">
+				ООО «РАССВЕТ» было основано в 2009 году на плодородных землях Клетского района Волгоградской области. С момента основания нашей главной целью было создание эффективного производства, которое не только приносит прибыль, но и заботится о сохранении плодородия почв.
+			</p>
+			<p class="text-gray-600 mb-4 leading-relaxed">
+				Мы специализируемся на выращивании зерновых (пшеница, ячмень, кукуруза) и масличных культур (подсолнечник). За годы работы мы модернизировали парк техники, построили современный зерноочистительный комплекс и расширили складские мощности.
+			</p>
+			<div class="mt-8 border-l-4 border-accent pl-6 italic text-gray-700">
+				"Наша миссия — обеспечивать партнеров качественной экологически чистой продукцией, развивая агропромышленный потенциал региона."
+			</div>
+			<p class="mt-4 font-bold text-gray-900">— Кузнецов Сергей Владимирович, Директор</p>
+		</div>
+		<div class="relative">
+			<div class="absolute top-4 left-4 w-full h-full border-2 border-accent rounded-xl -z-10"></div>
+			<img 
+				src="{% static 'images/assets/about.png' %}" 
+				alt="Техника в поле" 
+				class="rounded-xl shadow-lg w-full"
+			/>
+		</div>
+	</div>
+	
+	<!-- Ценности -->
+	<div class="mb-20">
+		<h2 class="text-3xl font-bold text-gray-900 mb-10 text-center">Наши ценности</h2>
+		<div class="grid md:grid-cols-3 gap-8">
+			<div class="text-center p-6 bg-gray-50 rounded-xl">
+				<div class="w-16 h-16 bg-white shadow-sm rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+					<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+					</svg>
+				</div>
+				<h3 class="text-xl font-bold mb-3">Качество</h3>
+				<p class="text-gray-600">Мы не идем на компромиссы в вопросах качества продукции. Каждая партия проходит строгий лабораторный контроль.</p>
+			</div>
+			<div class="text-center p-6 bg-gray-50 rounded-xl">
+				<div class="w-16 h-16 bg-white shadow-sm rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+					<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+					</svg>
+				</div>
+				<h3 class="text-xl font-bold mb-3">Партнерство</h3>
+				<p class="text-gray-600">Мы строим долгосрочные и честные отношения с нашими покупателями и поставщиками.</p>
+			</div>
+			<div class="text-center p-6 bg-gray-50 rounded-xl">
+				<div class="w-16 h-16 bg-white shadow-sm rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+					<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+					</svg>
+				</div>
+				<h3 class="text-xl font-bold mb-3">Развитие</h3>
+				<p class="text-gray-600">Постоянное внедрение новых агротехнологий и обновление технической базы для повышения эффективности.</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Статистика -->
+	<div class="bg-earth rounded-2xl p-10 text-white">
+		<div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+		<div>
+			<div class="text-3xl font-bold mb-1 text-accent">15+</div>
+			<div class="text-sm opacity-80">Лет на рынке</div>
+		</div>
+		<div>
+			<div class="text-3xl font-bold mb-1 text-accent">50 000+</div>
+			<div class="text-sm opacity-80">Тонн продукции в год</div>
+		</div>
+		<div>
+			<div class="text-3xl font-bold mb-1 text-accent">10 000</div>
+			<div class="text-sm opacity-80">Гектар земли</div>
+		</div>
+		<div>
+			<div class="text-3xl font-bold mb-1 text-accent">100%</div>
+			<div class="text-sm opacity-80">Контроль качества</div>
+		</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

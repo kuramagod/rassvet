@@ -1,0 +1,226 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block title %}
+Сельскохозяйственная продукция
+{% endblock %}
+
+{% block content %}
+<!-- Главный экран -->
+<section class="relative h-[80vh] min-h-[600px] flex items-center">
+    <div class="absolute inset-0 z-0">
+        <img src="{% static 'images/assets/heroimage.jpg' %}" alt="Пшеничное поле"
+            class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10 text-white">
+        <div class="max-w-3xl animate-fade-in-up">
+            <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight break-words">
+                Качественная <br />
+                <span class="text-accent">сельхозпродукция</span><br />
+                от производителя
+            </h1>
+            <p class="text-lg md:text-xl mb-10 text-gray-200 max-w-2xl leading-relaxed">
+                Выращиваем и реализуем зерновые и масличные культуры с 2009 года.
+                Стабильность поставок и гарантия качества для вашего бизнеса.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="{% url 'order_page' %}" class="btn-primary-lg w-full sm:w-auto text-center">Оформить заявку</a>
+                <a href="{% url 'catalog_page' %}" class="btn-outline-white-lg w-full sm:w-auto text-center">Каталог продукции</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Секция статистики -->
+<section class="py-12 bg-primary">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:grid md:grid-cols-4 gap-8 text-center">
+            <div class="p-4 relative border-b border-white/20 md:border-b-0">
+                <div class="text-4xl md:text-5xl font-bold text-accent mb-2">15+</div>
+                <div class="text-sm md:text-base text-white/90 uppercase tracking-wide">Лет на рынке</div>
+                <div class="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 bg-white/20"></div>
+            </div>
+            <div class="p-4 relative border-b border-white/20 md:border-b-0">
+                <div class="text-4xl md:text-5xl font-bold text-accent mb-2">50 000+</div>
+                <div class="text-sm md:text-base text-white/90 uppercase tracking-wide">Тонн продукции в год</div>
+                <div class="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 bg-white/20"></div>
+            </div>
+            <div class="p-4 relative border-b border-white/20 md:border-b-0">
+                <div class="text-4xl md:text-5xl font-bold text-accent mb-2">10 000</div>
+                <div class="text-sm md:text-base text-white/90 uppercase tracking-wide">Гектар земли</div>
+                <div class="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 bg-white/20"></div>
+            </div>
+            <div class="p-4 relative">
+                <div class="text-4xl md:text-5xl font-bold text-accent mb-2">100%</div>
+                <div class="text-sm md:text-base text-white/90 uppercase tracking-wide">Контроль качества</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Секция особенностей -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-primary font-bold uppercase tracking-wider text-sm">Почему выбирают нас</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-2 text-gray-900">Надежность и качество в каждой сделке</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div
+                class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:-translate-y-1 transition duration-300">
+                <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
+                        </path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Экологически чистое</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Выращиваем продукцию на плодородных землях Волгоградской области с соблюдением всех агротехнических
+                    норм.
+                </p>
+            </div>
+            <div
+                class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:-translate-y-1 transition duration-300">
+                <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                        </path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Контроль качества</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Собственная лаборатория и строгий контроль на всех этапах: от посева до отгрузки покупателю.
+                    Сертификация по ГОСТ.
+                </p>
+            </div>
+            <div
+                class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:-translate-y-1 transition duration-300">
+                <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Удобная логистика</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Оперативная отгрузка автотранспортом. Помощь в оформлении сопроводительных документов и накладных.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Рекомендуемые товары -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <span class="text-accent font-bold uppercase tracking-wider text-sm">Продукция</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 text-gray-900">Популярные товары</h2>
+            </div>
+            <a href="{% url 'catalog_page' %}"
+                class="hidden md:flex items-center text-primary font-bold hover:text-primary-light transition">
+                Весь каталог
+                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Товар 1 -->
+            <!-- <div class="group bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="https://picsum.photos/seed/wheat/800/600" alt="Пшеница озимая"
+                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
+                    <div class="absolute top-4 left-4">
+                        <span
+                            class="inline-block bg-white/90 backdrop-blur-sm text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Зерновые
+                            культуры</span>
+                    </div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">Пшеница озимая (3 класс)</h3>
+                    <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">Высококачественная продовольственная пшеница с высоким содержанием клейковины.</p>
+                    <div class="mt-auto flex gap-3">
+                        <a href="product.html?id=1" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200 transition text-sm font-medium">Подробнее</a>
+                        <a href="order.html" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-primary text-white rounded hover:bg-primary-light transition text-sm font-medium group/btn">Заказать
+                            <svg class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div> -->
+
+
+        <div class="mt-12 text-center md:hidden">
+            <a href="{% url 'catalog_page' %}" class="btn-outline-primary">Перейти в каталог</a>
+        </div>
+    </div>
+</section>
+
+<!-- Секция новостей -->
+<section class="py-20 bg-gray-50 border-t border-gray-200">
+    <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mt-2 text-gray-900">Новости компании</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
+                <img src="{% static 'images/assets/news1.jpg' %}" alt="Новость"
+                    class="w-full h-48 object-cover" />
+                <div class="p-6">
+                    <div class="text-sm text-gray-500 mb-2">02.09.2025</div>
+                    <h3 class="text-lg font-bold mb-3 text-gray-900">Завершение уборки озимой пшеницы</h3>
+                    <p class="text-gray-600 text-sm mb-4 line-clamp-3">ООО «Рассвет» успешно завершило уборочную кампанию
+                        озимых культур. Урожайность превысила показатели прошлого года на 15%.</p>
+                </div>
+            </article>
+            <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
+                <img src="{% static 'images/assets/news2.jpg' %}" alt="Новость"
+                    class="w-full h-48 object-cover" />
+                <div class="p-6">
+                    <div class="text-sm text-gray-500 mb-2">15.08.2025</div>
+                    <h3 class="text-lg font-bold mb-3 text-gray-900">Модернизация элеваторного комплекса</h3>
+                    <p class="text-gray-600 text-sm mb-4 line-clamp-3">Введены в эксплуатацию новые зерносушилки,
+                        позволяющие увеличить скорость обработки зерна вдвое.</p>
+                </div>
+            </article>
+            <article class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
+                <img src="{% static 'images/assets/news3.jpg' %}" alt="Новость"
+                    class="w-full h-48 object-cover" />
+                <div class="p-6">
+                    <div class="text-sm text-gray-500 mb-2">20.07.2025</div>
+                    <h3 class="text-lg font-bold mb-3 text-gray-900">Получение сертификата соответствия</h3>
+                    <p class="text-gray-600 text-sm mb-4 line-clamp-3">Наша продукция успешно прошла испытания и получила
+                        новые сертификаты качества ЕАС.</p>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Секция CTA  -->
+<section class="py-24 bg-earth relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')] opacity-10">
+    </div>
+    <div class="container mx-auto px-4 relative z-10 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Готовы к сотрудничеству?</h2>
+        <p class="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+            Оставьте заявку на поставку продукции, и мы подготовим для вас индивидуальное коммерческое предложение.
+        </p>
+        <a href="{% url 'order_page' %}"
+            class="btn-primary-lg shadow-lg transform hover:-translate-y-1 inline-block">Оформить
+            накладную</a>
+    </div>
+</section>
+{% endblock %}
