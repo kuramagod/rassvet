@@ -8,6 +8,7 @@
     <link rel="icon" href="{% static 'images/assets/icon.png' %}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="{% static 'js/main.js' %}" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script>
     tailwind.config = {
@@ -36,8 +37,8 @@
                 }
             },
             fontFamily: {
-                sans: ['Helvetica', 'Arial', 'sans-serif'],
-                display: ['Montserrat', 'Arial', 'sans-serif'],
+                sans: ['PT Sans', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
+                display: ['Montserrat', 'Inter', 'sans-serif'],
             }
             },
         },
@@ -99,7 +100,10 @@
             </div>
         </nav>
   
-        {% block content %} {% endblock %}
+        <!-- Основной контент -->
+        <main class="flex-grow">
+            {% block content %} {% endblock %}
+        </main>
   
         <!-- Футер -->
         <footer class="bg-[#2C3E2D] text-white pt-16 pb-8">
@@ -155,7 +159,7 @@
                                 <svg class="w-5 h-5 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                 </svg>
-                                <a href="mailto:info@rassvet-agro.ru" class="text-sm text-gray-300 hover:text-white">info@rassvet-agro.ru</a>
+                                <a href="mailto:rassvet-info-vlg@mail.ru" class="text-sm text-gray-300 hover:text-white">rassvet-info-vlg@mail.ru</a>
                             </li>
                         </ul>
                     </div>

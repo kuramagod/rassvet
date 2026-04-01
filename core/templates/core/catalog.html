@@ -12,7 +12,7 @@
 
 {% block content %}
 <!-- Главная секция -->
-<div class="bg-gray-50 min-h-screen py-12">
+<div class="bg-gray-50 py-12">
     <div class="container mx-auto px-4">
     
         <!-- Заголовок -->
@@ -41,12 +41,11 @@
                         <button onclick="filterProducts('All')" class="filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all bg-primary text-white shadow-md whitespace-nowrap">
                             Все
                         </button>
-                        <button onclick="filterProducts('Зерновые культуры')" class="filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 whitespace-nowrap" data-category="Зерновые культуры">
-                            Зерновые культуры
+                        {% for category in categories %}
+                        <button onclick="filterProducts('{{ category.name }}')" class="filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 whitespace-nowrap" data-category="{{ category.name }}">
+                            {{ category.name }}
                         </button>
-                        <button onclick="filterProducts('Масличные культуры и масла')" class="filter-btn px-6 py-2 rounded-full text-sm font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 whitespace-nowrap" data-category="Масличные культуры и масла">
-                            Масличные культуры и масла
-                        </button>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -54,17 +53,17 @@
 
         <!-- Grid Товаров -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Товар 1 -->
-            <div class="product-card group bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full" data-category="Зерновые культуры">
+            {% for product in products %}
+            <div class="product-card group bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full" data-category="{{ product.category.name }}">
                 <div class="relative h-56 overflow-hidden">
-                    <img src="https://picsum.photos/seed/wheat/800/600" alt="Пшеница озимая" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
                     <div class="absolute top-4 left-4">
-                        <span class="inline-block bg-white/90 backdrop-blur-sm text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Зерновые культуры</span>
+                        <span class="inline-block bg-white/90 backdrop-blur-sm text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">{{ product.category.name }}</span>
                     </div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">Пшеница озимая (3 класс)</h3>
-                    <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">Высококачественная продовольственная пшеница с высоким содержанием клейковины.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">{{ product.name }}</h3>
+                    <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">{{ product.short_description }}</p>
                     <div class="mt-auto flex gap-3">
                         <a href="product.html?id=1" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200 transition text-sm font-medium">Подробнее</a>
                         <a href="order.html" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-primary text-white rounded hover:bg-primary-light transition text-sm font-medium group/btn">
@@ -76,99 +75,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Товар 2 -->
-            <div class="product-card group bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full" data-category="Зерновые культуры">
-                <div class="relative h-56 overflow-hidden">
-                    <img src="https://picsum.photos/seed/barley/800/600" alt="Ячмень фуражный" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
-                    <div class="absolute top-4 left-4">
-                        <span class="inline-block bg-white/90 backdrop-blur-sm text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Зерновые культуры</span>
-                    </div>
-                </div>
-                <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">Ячмень фуражный</h3>
-                    <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">Отборный ячмень для производства комбикормов.</p>
-                    <div class="mt-auto flex gap-3">
-                        <a href="product.html?id=2" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200 transition text-sm font-medium">Подробнее</a>
-                        <a href="order.html" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-primary text-white rounded hover:bg-primary-light transition text-sm font-medium group/btn">
-                            Заказать
-                            <svg class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Товар 3 -->
-            <div class="product-card group bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full" data-category="Зерновые культуры">
-                <div class="relative h-56 overflow-hidden">
-                    <img src="https://picsum.photos/seed/corn/800/600" alt="Кукуруза зерновая" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
-                    <div class="absolute top-4 left-4">
-                        <span class="inline-block bg-white/90 backdrop-blur-sm text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Зерновые культуры</span>
-                    </div>
-                </div>
-                <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">Кукуруза зерновая</h3>
-                    <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">Зерно кукурузы высокой крахмалистости.</p>
-                    <div class="mt-auto flex gap-3">
-                        <a href="product.html?id=3" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200 transition text-sm font-medium">Подробнее</a>
-                        <a href="order.html" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-primary text-white rounded hover:bg-primary-light transition text-sm font-medium group/btn">
-                            Заказать
-                            <svg class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Товар 4 -->
-            <div class="product-card group bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full" data-category="Масличные культуры и масла">
-                <div class="relative h-56 overflow-hidden">
-                    <img src="https://picsum.photos/seed/oil/800/600" alt="Масло подсолнечное" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
-                    <div class="absolute top-4 left-4">
-                        <span class="inline-block bg-white/90 backdrop-blur-sm text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Масличные культуры и масла</span>
-                    </div>
-                </div>
-                <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">Масло подсолнечное нерафинированное</h3>
-                    <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">Натуральное масло первого отжима, наливом.</p>
-                    <div class="mt-auto flex gap-3">
-                        <a href="product.html?id=4" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200 transition text-sm font-medium">Подробнее</a>
-                        <a href="order.html" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-primary text-white rounded hover:bg-primary-light transition text-sm font-medium group/btn">
-                            Заказать
-                            <svg class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Товар 5 -->
-            <div class="product-card group bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full" data-category="Масличные культуры и масла">
-                <div class="relative h-56 overflow-hidden">
-                    <img src="https://picsum.photos/seed/sunflower/800/600" alt="Семена подсолнечника" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
-                    <div class="absolute top-4 left-4">
-                        <span class="inline-block bg-white/90 backdrop-blur-sm text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Масличные культуры и масла</span>
-                    </div>
-                </div>
-                <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">Семена подсолнечника масличного</h3>
-                    <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">Сырье для производства масла с высокой масличностью.</p>
-                    <div class="mt-auto flex gap-3">
-                        <a href="product.html?id=5" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200 transition text-sm font-medium">Подробнее</a>
-                        <a href="order.html" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-primary text-white rounded hover:bg-primary-light transition text-sm font-medium group/btn">
-                            Заказать
-                            <svg class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+            {% endfor %}
 
         <div id="no-products" class="text-center py-20 text-gray-500 hidden">
             Продукция в данной категории временно отсутствует.
