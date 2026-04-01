@@ -65,7 +65,7 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">{{ product.name }}</h3>
                     <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">{{ product.short_description }}</p>
                     <div class="mt-auto flex gap-3">
-                        <a href="product.html?id=1" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200 transition text-sm font-medium">Подробнее</a>
+                        <a href="{{ product.get_absolute_url }}" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200 transition text-sm font-medium">Подробнее</a>
                         <a href="order.html" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-primary text-white rounded hover:bg-primary-light transition text-sm font-medium group/btn">
                             Заказать
                             <svg class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

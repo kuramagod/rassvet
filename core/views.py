@@ -3,6 +3,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import DetailView
 from django.db import transaction
 from .models import Product, Category, News, Message, DeliveryType, Client, Contact, RequestStatus, Request, RequestItem
 
@@ -16,6 +17,18 @@ def catalog_page(request):
     products = Product.objects.filter(is_active=True)
     categories = Category.objects.all()
     return render(request, "core/catalog.html", {"products": products, "categories": categories})
+
+class ProductPage(DetailView):
+    model = Product
+    template_name = "core/product.html"
+    slug_url_kwarg = "product_slug"
+    context_object_name = "product"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['characteristics'] = self.get_object().characteristics.all()
+        return context
+
 
 def about_page(request):
     return render(request, "core/about.html")

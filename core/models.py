@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 import uuid
 
 
@@ -31,6 +32,9 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def get_absolute_url(self):  
+        return reverse('product', kwargs={'product_slug': self.slug})
+
     def __str__(self):
         return self.name
     
@@ -45,7 +49,7 @@ class ProductCharacteristic(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="characteristics")
 
     def __str__(self):
-        return self.name
+        return f"{self.product.name}: {self.name} {self.value}"
     
     class Meta:
         verbose_name = "Характеристика товара"
