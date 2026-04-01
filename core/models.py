@@ -22,6 +22,7 @@ class Product(models.Model):
     sku = models.CharField(max_length=50, unique=True)
     name = models.CharField(max_length=120)
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")
     description = models.TextField()
     short_description = models.TextField(max_length=120)
@@ -142,7 +143,7 @@ class RequestItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="items")
 
     def __str__(self):
-        return f"Заказ от {self.request}: {self.product}"
+        return f"Заказ {self.request}: {self.product}"
     
     class Meta:
         verbose_name = "Товар заявки"
@@ -151,7 +152,7 @@ class RequestItem(models.Model):
 
 class Message(models.Model):
     name = models.CharField(max_length=120)
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20, )
     email = models.EmailField(max_length=120)
     text = models.TextField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)

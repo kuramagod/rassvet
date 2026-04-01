@@ -1,11 +1,28 @@
-// Временные константы
-const products = [
-    { id: '1', name: 'Пшеница озимая (3 класс)' },
-    { id: '2', name: 'Ячмень фуражный' },
-    { id: '3', name: 'Кукуруза зерновая' },
-    { id: '4', name: 'Масло подсолнечное нерафинированное' },
-    { id: '5', name: 'Семена подсолнечника масличного' }
-];
+function getCSRFToken() {
+    // Пытаемся получить из cookie
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, 'csrftoken'.length + 1) === ('csrftoken=')) {
+                cookieValue = decodeURIComponent(cookie.substring('csrftoken'.length + 1));
+                break;
+            }
+        }
+    }
+    // Если не нашли в cookie, пробуем из мета-тега
+    if (!cookieValue) {
+        const metaTag = document.querySelector('meta[name="csrf-token"]');
+        if (metaTag) {
+            cookieValue = metaTag.getAttribute('content');
+        }
+    }
+    return cookieValue;
+}
+
+// Используем продукты из глобальной переменной
+const products = window.availableProducts || [];
 
 let currentStep = 1;
 const totalSteps = 5;
@@ -217,8 +234,10 @@ function initDeliveryToggle() {
             options.forEach(o => o.classList.remove('border-rassvet-orange', 'bg-orange-50', 'ring-1', 'ring-rassvet-orange'));
             this.classList.add('border-rassvet-orange', 'bg-orange-50', 'ring-1', 'ring-rassvet-orange');
             
+            const deliveryTypeId = radio.value;
+            const isDelivery = deliveryTypeId !== '2';
             document.getElementById('delivery-address-block').style.display = 
-                radio.value === 'pickup' ? 'none' : 'block';
+                isDelivery ? 'block' : 'none';
         });
     });
 }
@@ -253,12 +272,91 @@ function updateReview() {
     reviewAddr.textContent = (delType === 'delivery' && addr) ? addr : '';
 }
 
-// Имитация отправки формы
+// Отправка формы на сервер
 window.submitOrder = function() {
     if (!validateCurrentStep()) return;
+    
+    // Собираем данные для отправки
+    const orderData = {
+        // Шаг 1: Информация о компании
+        company_name: document.getElementById('companyName').value.trim(),
+        inn: document.getElementById('inn').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        
+        // Шаг 2: Контактная информация
+        contact_person: document.getElementById('contactPerson').value.trim(),
+        position: document.getElementById('position').value.trim() || '',
+        phone: document.getElementById('phone').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        
+        // Шаг 4: Доставка и комментарии
+        delivery_type: document.querySelector('input[name="deliveryType"]:checked').value,
+        delivery_address: document.getElementById('deliveryAddress').value.trim(),
+        comments: document.getElementById('comments').value.trim(),
+        
+        // Шаг 3: Товары
+        items: []
+    };
+    
+    // Собираем товары
+    document.querySelectorAll('.order-item').forEach(item => {
+        const select = item.querySelector('.product-select');
+        const qty = item.querySelector('.quantity-input').value;
+        const productId = select.value;
+        const productName = select.options[select.selectedIndex].text;
+        
+        orderData.items.push({
+            product_id: productId,
+            product_name: productName,
+            quantity: parseInt(qty)
+        });
+    });
+    
+    // Проверяем, что товары есть
+    if (orderData.items.length === 0) {
+        emptyProductError(true);
+        return;
+    }
+    
+    // Отключаем кнопку отправки
+    const nextBtn = document.getElementById('next-btn');
+    const originalText = nextBtn.innerHTML;
+    nextBtn.disabled = true;
+    nextBtn.innerHTML = 'Отправка...';
+    
+    // Получаем CSRF токен
+    const csrftoken = getCSRFToken();
+    
+    // Отправляем данные на сервер
+    fetch('/api/create_request/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showSuccessMessage(data.order_number);
+        } else {
+            showErrorMessage(data.error || 'Произошла ошибка при отправке заявки');
+            nextBtn.disabled = false;
+            nextBtn.innerHTML = originalText;
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        showErrorMessage('Произошла ошибка при отправке заявки. Пожалуйста, проверьте подключение к интернету и попробуйте снова.');
+        nextBtn.disabled = false;
+        nextBtn.innerHTML = originalText;
+    });
+};
 
+// Функция для показа сообщения об успехе
+function showSuccessMessage(orderNumber) {
     const wizard = document.getElementById('order-wizard');
-    const orderNum = Math.floor(1000 + Math.random() * 9000);
     
     wizard.innerHTML = `
         <div class="p-12 text-center fade-in">
@@ -267,7 +365,7 @@ window.submitOrder = function() {
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
             </div>
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">Заявка #REQ-${orderNum} принята!</h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Заявка #${orderNumber} принята!</h2>
             <p class="text-gray-600 mb-8 text-lg">
                 Наш менеджер свяжется с вами в ближайшее время для уточнения деталей и формирования счета.
             </p>
@@ -277,4 +375,43 @@ window.submitOrder = function() {
             </div>
         </div>
     `;
-};
+}
+
+// Функция для показа сообщения об ошибке
+function showErrorMessage(errorMessage) {
+    // Создаем или обновляем блок с ошибкой
+    let errorDiv = document.getElementById('submit-error');
+    if (!errorDiv) {
+        errorDiv = document.createElement('div');
+        errorDiv.id = 'submit-error';
+        errorDiv.className = 'fixed top-4 right-4 z-50 max-w-md';
+        document.body.appendChild(errorDiv);
+    }
+    
+    errorDiv.innerHTML = `
+        <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg shadow-lg fade-in">
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-red-700">${errorMessage}</p>
+                </div>
+                <button onclick="this.parentElement.parentElement.remove()" class="ml-auto pl-3">
+                    <svg class="h-5 w-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    `;
+    
+    // Автоматически удаляем сообщение через 5 секунд
+    setTimeout(() => {
+        if (errorDiv && errorDiv.parentElement) {
+            errorDiv.remove();
+        }
+    }, 5000);
+}

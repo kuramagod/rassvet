@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', async function () {
     const form = document.getElementById('feedback');
     const contactInput = form.querySelector('input[name="contact"]');
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     // Очищаем ошибку при вводе
     contactInput.addEventListener('input', () => {
@@ -30,20 +31,24 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         }
 
-        // const response = await fetch(`/api/contact/`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(data)
-        // });
+        const response = await fetch(`/api/create_message/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify(data)
+        });
 
-        // if (response.ok) {
-        //     window.location.reload();
-        // } else {
-        //     console.log(response);
-        // }
-
-        console.log("Сообщение отправлено!");
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        if (response.ok) {
+            form.reset();
+            alert("Сообщение отправлено");
+        } else {
+            alert("Ошибка отправки")
+        }
     });
 });

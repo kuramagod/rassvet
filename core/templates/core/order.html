@@ -11,6 +11,8 @@
 {% endblock %}
 
 {% block content %}
+<meta name="csrf-token" content="{{ csrf_token }}">
+
 <div class="bg-gray-50 min-h-screen py-12">
     <div class="container mx-auto px-4">
         <div class="text-center mb-10">
@@ -20,6 +22,20 @@
                 Наш менеджер проверит наличие и свяжется с вами для согласования деталей логистики и оплаты.
             </p>
         </div>
+
+        <!-- Передаем продукты в JavaScript -->
+        <script>
+            window.availableProducts = [
+                {% for product in products %}
+                {
+                    id: '{{ product.id }}',
+                    name: '{{ product.name }}',
+                    price: '{{ product.price }}',
+                    sku: '{{ product.sku }}'
+                }{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ];
+        </script>
 
         <!-- Интерфейс заказа -->
         <div id="order-wizard" class="max-w-4xl mx-auto my-12 bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
@@ -167,35 +183,29 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-3">Способ получения</label>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <label class="border rounded-xl p-4 cursor-pointer transition-all delivery-option" data-type="delivery">
+                            {% for delivery_type in delivery_types %}
+                            <label class="border rounded-xl p-4 cursor-pointer transition-all delivery-option" data-type="{{ delivery_type.id }}">
                                 <div class="flex items-center gap-3">
                                     <input
                                         type="radio"
                                         name="deliveryType"
-                                        value="delivery"
-                                        checked
+                                        value="{{ delivery_type.id }}"
+                                        {% if forloop.first %}checked{% endif %}
                                         class="text-rassvet-orange focus:ring-rassvet-orange"
                                     />
                                     <div>
-                                        <span class="block font-bold text-gray-900">Доставка транспортом поставщика</span>
-                                        <span class="text-xs text-gray-500">Авто или Ж/Д транспорт до вашего склада</span>
+                                        <span class="block font-bold text-gray-900">{{ delivery_type.name }}</span>
+                                        <span class="text-xs text-gray-500">
+                                            {% if delivery_type.name == 'Самовывоз' %}
+                                            С наших элеваторов
+                                            {% else %}
+                                            Авто или Ж/Д транспорт до вашего склада
+                                            {% endif %}
+                                        </span>
                                     </div>
                                 </div>
                             </label>
-                            <label class="border rounded-xl p-4 cursor-pointer transition-all delivery-option" data-type="pickup">
-                                <div class="flex items-center gap-3">
-                                    <input
-                                        type="radio"
-                                        name="deliveryType"
-                                        value="pickup"
-                                        class="text-rassvet-orange focus:ring-rassvet-orange"
-                                    />
-                                    <div>
-                                        <span class="block font-bold text-gray-900">Самовывоз</span>
-                                        <span class="text-xs text-gray-500">С наших элеваторов</span>
-                                    </div>
-                                </div>
-                            </label>
+                            {% endfor %}
                         </div>
                     </div>
 
