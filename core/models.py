@@ -69,6 +69,7 @@ class DeliveryType(models.Model):
     
     class Meta:
         verbose_name = "Тип доставки"
+        verbose_name_plural =  "Типы доставок"
     
 
 class RequestStatus(models.Model):
@@ -174,3 +175,4 @@ class News(models.Model):
     
     class Meta:
         verbose_name = "Новости"
+        verbose_name_plural = "Новости"
