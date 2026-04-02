@@ -115,7 +115,7 @@ class Contact(models.Model):
         verbose_name_plural = "Контакты"
 
     def __str__(self):
-        return self.fullname
+        return f"{self.fullname} {self.jobtitle} компании {self.client.company_name}"
 
 
 class Request(models.Model):

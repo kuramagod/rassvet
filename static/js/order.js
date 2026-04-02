@@ -234,12 +234,21 @@ function initDeliveryToggle() {
             options.forEach(o => o.classList.remove('border-rassvet-orange', 'bg-orange-50', 'ring-1', 'ring-rassvet-orange'));
             this.classList.add('border-rassvet-orange', 'bg-orange-50', 'ring-1', 'ring-rassvet-orange');
             
+            // Получаем ID типа доставки
             const deliveryTypeId = radio.value;
-            const isDelivery = deliveryTypeId !== '2';
-            document.getElementById('delivery-address-block').style.display = 
-                isDelivery ? 'block' : 'none';
+            const deliveryTypeName = getDeliveryTypeName(deliveryTypeId);
+            
+            // Показываем поле адреса только для доставки (не для самовывоза)
+            const isPickup = deliveryTypeName === 'Самовывоз';
+            document.getElementById('delivery-address-block').style.display = isPickup ? 'none' : 'block';
         });
     });
+}
+
+// Функция для получения названия типа доставки по ID
+function getDeliveryTypeName(id) {
+    const deliveryType = window.deliveryTypes.find(dt => dt.id == id);
+    return deliveryType ? deliveryType.name : '-';
 }
 
 // Сводка данных перед отправкой (Шаг 5)
@@ -264,12 +273,21 @@ function updateReview() {
         reviewItems.appendChild(li);
     });
 
-    const delType = document.querySelector('input[name="deliveryType"]:checked').value;
-    document.getElementById('review-delivery').textContent = delType === 'delivery' ? 'Доставка поставщиком' : 'Самовывоз';
-    
-    const addr = document.getElementById('deliveryAddress').value;
-    const reviewAddr = document.getElementById('review-address');
-    reviewAddr.textContent = (delType === 'delivery' && addr) ? addr : '';
+    // Получаем выбранный тип доставки
+    const selectedRadio = document.querySelector('input[name="deliveryType"]:checked');
+    if (selectedRadio) {
+        const deliveryTypeId = selectedRadio.value;
+        const deliveryTypeName = getDeliveryTypeName(deliveryTypeId);
+        document.getElementById('review-delivery').textContent = deliveryTypeName;
+        
+        // Показываем адрес только если это не самовывоз
+        const isPickup = deliveryTypeName === 'Самовывоз';
+        const addr = document.getElementById('deliveryAddress').value;
+        const reviewAddr = document.getElementById('review-address');
+        reviewAddr.textContent = (!isPickup && addr) ? addr : '';
+    } else {
+        document.getElementById('review-delivery').textContent = '-';
+    }
 }
 
 // Отправка формы на сервер

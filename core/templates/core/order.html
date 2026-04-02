@@ -35,6 +35,15 @@
                 }{% if not forloop.last %},{% endif %}
                 {% endfor %}
             ];
+
+            window.deliveryTypes = [
+                {% for delivery_type in delivery_types %}
+                {
+                    id: '{{ delivery_type.id }}',
+                    name: '{{ delivery_type.name }}'
+                }{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ];
         </script>
 
         <!-- Интерфейс заказа -->
