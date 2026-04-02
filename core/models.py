@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+import slugify
 import uuid
 
 
@@ -17,6 +18,10 @@ class Category(models.Model):
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
 class Product(models.Model):
@@ -41,6 +46,10 @@ class Product(models.Model):
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
 class ProductCharacteristic(models.Model):

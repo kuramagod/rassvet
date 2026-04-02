@@ -132,11 +132,9 @@
                     <div>
                         <h3 class="text-lg font-bold mb-4 text-accent">Продукция</h3>
                         <ul class="space-y-2">
-                            <li class="text-gray-300">Пшеница продовольственная</li>
-                            <li class="text-gray-300">Ячмень фуражный</li>
-                            <li class="text-gray-300">Кукуруза</li>
-                            <li class="text-gray-300">Масло подсолнечное</li>
-                            <li class="text-gray-300">Семена масличные</li>
+                            {% for footer_product in footer_products %}
+                            <li class="text-gray-300"> <a href="{{ footer_product.get_absolute_url }}">{{ footer_product.name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <div>
