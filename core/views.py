@@ -5,6 +5,7 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView
 from django.db import transaction
+from .utils import generate_waybill
 from .models import Product, Category, News, Message, DeliveryType, Client, Contact, RequestStatus, Request, RequestItem
 
 
@@ -191,6 +192,9 @@ def create_request(request):
             
             request_obj.total_price = total_price
             request_obj.save()
+            
+            # Создание накладной
+            file_url = generate_waybill(request_obj)
         
         return JsonResponse({
             'success': True,
