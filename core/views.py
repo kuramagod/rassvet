@@ -1,12 +1,16 @@
-from django.shortcuts import render
 import json
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import DetailView
+import os
+
+from django.conf import settings
 from django.db import transaction
+from django.http import FileResponse, Http404, JsonResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods, require_POST
+from django.views.generic import DetailView
+
+from .models import Category, Client, Contact, DeliveryType, Message, News, Product, Request, RequestItem, RequestStatus
 from .utils import generate_waybill
-from .models import Product, Category, News, Message, DeliveryType, Client, Contact, RequestStatus, Request, RequestItem
 
 
 def home_page(request):
@@ -199,6 +203,8 @@ def create_request(request):
         return JsonResponse({
             'success': True,
             'order_number': request_obj.code,
+            'request_id': request_obj.id,
+            'download_url': f'/api/download-waybill/{request_obj.id}/',
             'message': f'Заявка #{request_obj.code} успешно создана'
         }, status=201)
         
@@ -211,4 +217,47 @@ def create_request(request):
         return JsonResponse({
             'success': False,
             'error': str(e)
+        }, status=500)
+
+
+@require_http_methods(["GET"])
+def download_waybill(request, request_id):
+    try:
+        
+        try:
+            request_obj = Request.objects.get(id=request_id)
+        except Request.DoesNotExist:
+            raise Http404("Заявка не найдена")
+        
+        # Формируем путь к файлу
+        file_name = f"nakladnaya_{request_id}.docx"
+        file_path = os.path.join(settings.MEDIA_ROOT, "invoices", file_name)
+        
+        # Проверяем существование файла
+        if not os.path.exists(file_path):
+            # Если файла нет - генерируем заново
+            generate_waybill(request_obj)
+            
+            # Проверяем еще раз
+            if not os.path.exists(file_path):
+                raise Http404("Файл накладной не найден")
+        
+        # Открываем файл и отправляем на скачивание
+        file = open(file_path, 'rb')
+        response = FileResponse(
+            file,
+            content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            as_attachment=True,
+            filename=f'Накладная_{request_obj.code}_{request_id}.docx'
+        )
+        
+        # Закрываем файл после отправки
+        response['Content-Length'] = os.path.getsize(file_path)
+        
+        return response
+        
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': f'Ошибка при скачивании файла: {str(e)}'
         }, status=500)

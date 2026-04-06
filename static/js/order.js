@@ -357,7 +357,7 @@ window.submitOrder = function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            showSuccessMessage(data.order_number);
+        showSuccessMessage(data.order_number, data.request_id, data.download_url);
         } else {
             showErrorMessage(data.error || 'Произошла ошибка при отправке заявки');
             nextBtn.disabled = false;
@@ -373,7 +373,7 @@ window.submitOrder = function() {
 };
 
 // Функция для показа сообщения об успехе
-function showSuccessMessage(orderNumber) {
+function showSuccessMessage(orderNumber, requestId, downloadUrl) {
     const wizard = document.getElementById('order-wizard');
     
     wizard.innerHTML = `
@@ -389,7 +389,11 @@ function showSuccessMessage(orderNumber) {
             </p>
             <div class="flex justify-center gap-4">
                 <a href="/" class="bg-rassvet-green text-white px-6 py-3 rounded-lg font-bold hover:bg-green-800 transition">На главную</a>
-                <button onclick="window.print()" class="border border-gray-300 px-6 py-3 rounded-lg font-bold hover:bg-gray-50 transition">Печать заявки</button>
+                <a href="${downloadUrl}" 
+                   class="border border-gray-300 px-6 py-3 rounded-lg font-bold hover:bg-gray-50 transition"
+                   download>
+                    Скачать накладную
+                </a>
             </div>
         </div>
     `;

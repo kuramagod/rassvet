@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-import slugify
+from slugify import slugify
 import uuid
 
 
@@ -32,7 +32,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")
     description = models.TextField()
     short_description = models.TextField(max_length=120)
-    image = models.ImageField(upload_to="static/images/products")
+    image = models.ImageField(upload_to="images/products")
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -66,7 +66,7 @@ class ProductCharacteristic(models.Model):
 
 
 class ProductImages(models.Model):
-    image = models.ImageField(upload_to="static/images/products")
+    image = models.ImageField(upload_to="images/products")
     is_main = models.BooleanField(default=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
 
@@ -182,7 +182,7 @@ class News(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField(max_length=550)
     created_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to="static/images/news")
+    image = models.ImageField(upload_to="images/news")
 
     def __str__(self):
         return self.title
