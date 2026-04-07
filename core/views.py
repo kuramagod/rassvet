@@ -4,6 +4,7 @@ import os
 from django.conf import settings
 from django.db import transaction
 from django.http import FileResponse, Http404, JsonResponse
+from django.core.mail import EmailMessage
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, require_POST
@@ -65,7 +66,7 @@ def contact_message(request):
             text=text
         )
 
-        return JsonResponse({"status": "ok"})
+        return JsonResponse({'success': True},  status=201)
     
     except Exception as e:
         return JsonResponse({
@@ -73,11 +74,22 @@ def contact_message(request):
             'error': str(e)
         }, status=500)
 
-
 def order_page(request):
     delivery_types = DeliveryType.objects.all()
     products = Product.objects.filter(is_active=True)
     return render(request, "core/order.html", {"delivery_types": delivery_types, 'products': products})
+
+def send_invoice_email(request):
+    file_path = os.path.join(settings.MEDIA_ROOT, 'invoices', f'nakladnaya_{request.id}.docx')
+    
+    email = EmailMessage(
+        subject=f"Новая заявка {request.code}",
+        body=f"Поступила новая заявка от {request.client.company_name}",
+        to=["rassvet-info-vlg@mail.ru"]
+    )
+
+    email.attach_file(file_path)
+    email.send(fail_silently=False)
 
 @require_POST
 @csrf_exempt
@@ -199,6 +211,8 @@ def create_request(request):
             
             # Создание накладной
             file_url = generate_waybill(request_obj)
+
+            send_invoice_email(request_obj)
         
         return JsonResponse({
             'success': True,
