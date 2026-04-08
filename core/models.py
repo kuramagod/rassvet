@@ -70,6 +70,9 @@ class ProductImages(models.Model):
     is_main = models.BooleanField(default=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
 
+    def __str__(self):
+        return self.product.name
+
     class Meta:
         verbose_name = "Изображение товара"
         verbose_name_plural = "Изображения товаров"
@@ -105,7 +108,7 @@ class Client(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.company_name
+        return f"{self.company_name}, ИНН: {self.tin}"
     
     class Meta:
         verbose_name = "Клиент"
