@@ -8,11 +8,7 @@ class WaybillService:
     @staticmethod
     def get_file_path(request_id):
         """Получить путь к файлу накладной"""
-        return os.path.join(
-            settings.MEDIA_ROOT, 
-            "invoices", 
-            f"nakladnaya_{request_id}.docx"
-        )
+        return os.path.join(settings.MEDIA_ROOT, 'invoices', f'nakladnaya_{request_id}.docx')
     
     @classmethod
     def get_or_generate_waybill(cls, request_obj):

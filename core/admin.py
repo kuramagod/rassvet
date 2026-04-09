@@ -150,7 +150,7 @@ class MessageAdmin(admin.ModelAdmin):
 
     @admin.display(description="Текст сообщения")
     def truncated_text(self, obj):
-        return truncatechars(obj.description, 50)
+        return truncatechars(obj.text, 50)
 
     search_fields = ['name']
     list_filter = ('created_at', )

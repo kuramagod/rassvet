@@ -1,10 +1,7 @@
 import os
 import json
 
-
-from django.conf import settings
 from django.http import FileResponse, Http404, JsonResponse
-from django.core.mail import EmailMessage
 from django.utils.decorators import method_decorator
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -77,19 +74,6 @@ class OrderView(TemplateView):
         context['delivery_types'] = DeliveryType.objects.all()
         context['products'] = Product.objects.filter(is_active=True)
         return context
-
-
-def send_invoice_email(request):
-    file_path = os.path.join(settings.MEDIA_ROOT, 'invoices', f'nakladnaya_{request.id}.docx')
-    
-    email = EmailMessage(
-        subject=f"Новая заявка {request.code}",
-        body=f"Поступила новая заявка от {request.client.company_name}",
-        to=["rassvet-info-vlg@mail.ru"]
-    )
-
-    email.attach_file(file_path)
-    email.send(fail_silently=False)
 
 
 @method_decorator(csrf_exempt, name='dispatch')

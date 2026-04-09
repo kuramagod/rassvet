@@ -12,7 +12,7 @@ urlpatterns = [
     path("contact", views.contact_page, name="contact_page"),
     path("order_page", views.OrderView.as_view(), name="order_page"),
 
-    path('api/contact/', views.contact_message, name='contact_message'),
-    path('api/create-request/', views.CreateOrderView.as_view(), name='create_request'),
-    path('api/download-waybill/<int:request_id>/', views.DownloadWaybillView.as_view(), name='download_waybill'),
+    path("api/create_message/", views.contact_message, name="contact_message"),
+    path("api/create_request/", views.CreateOrderView.as_view(), name="create_request"),
+    path("api/download-waybill/<int:request_id>/", views.DownloadWaybillView.as_view(), name="download_waybill"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
