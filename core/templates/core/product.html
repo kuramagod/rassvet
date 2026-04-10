@@ -1,82 +1,87 @@
 {% extends 'core/base.html' %}
 {% load static %}
 
+{% block script %} 
+<script src="{% static 'js/product.js' %}" defer></script>
+{% endblock %}
+
 {% block title %}
 {{ product.name }}
 {% endblock %}
 
 {% block content %}
 <div class="bg-white min-h-screen py-12">
-	<div class="container mx-auto px-4">
-		<div class="mb-8">
-			<a href="{% url 'catalog_page' %}" class="inline-flex items-center text-gray-500 hover:text-primary transition">
-			<svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-			</svg>
-			Назад в каталог
-			</a>
-		</div>
+    <div class="container mx-auto px-4">
+        <div class="mb-8">
+            <a href="{% url 'catalog_page' %}" class="inline-flex items-center text-gray-500 hover:text-primary transition">
+                <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Назад в каталог
+            </a>
+        </div>
 
-		<!-- Товар не найден -->
-		<div id="product-not-found" class="min-h-[40vh] hidden items-center justify-center flex-col text-center">
-			<h2 class="text-2xl font-bold text-gray-900 mb-4">Товар не найден</h2>
-			<a href="{% url 'catalog_page' %}" class="text-primary hover:underline">Вернуться в каталог</a>
-		</div>
-
-		<!-- Детали -->
-		<div id="product-details" class="grid lg:grid-cols-2 gap-12 items-start">
-			<div class="bg-gray-100 rounded-2xl overflow-hidden shadow-sm">
-			<img id="product-image" src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-auto object-cover max-h-[600px]" />
-			</div>
-
-			<div>
-			<span id="product-category" class="text-primary font-bold uppercase tracking-wider text-sm mb-2 block">{{ product.category.name }}</span>
-			<h1 id="product-name" class="text-4xl font-bold text-gray-900 mb-6">{{ product.name }}</h1>
-
-			<p id="product-description" class="text-gray-600 text-lg leading-relaxed mb-8">{{ product.description }}</p>
-
-			<div class="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-8">
-				<h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-				<svg class="w-5 h-5 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-				</svg>
-				Технические характеристики
-				</h3>
-				<div id="product-specs" class="divide-y divide-gray-200">
-					{% for characteristic in characteristics %}
-					<div class="py-3 flex justify-between items-center">
-						<span class="text-gray-600 font-medium">{{ characteristic.name }}</span>
-						<span class="text-gray-900 font-bold">{{ characteristic.value }}</span>
-					</div>
-					{% endfor %}
+        <div id="product-details" class="grid lg:grid-cols-2 gap-12 items-start">
+            <div class="relative bg-gray-100 rounded-2xl overflow-hidden shadow-sm group">
+            	<div id="slider-track" class="flex transition-transform duration-500 ease-out h-[400px] md:h-[500px] lg:h-[600px]" data-slides-count="{{ product_images|length|default:1 }}">
+					{% if product_images %}
+                        {% for img in product_images %}
+                        <div class="min-w-full h-full">
+                            <img src="{{ img.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="min-w-full h-full">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
+                        </div>
+                    {% endif %}
 				</div>
-			</div>
 
-			<div class="flex gap-4 mb-10">
-				<div class="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-full text-sm font-medium">
-				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-				</svg>
-				ГОСТ Р
-				</div>
-				<div class="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-2 rounded-full text-sm font-medium">
-				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-				</svg>
-				Сертификат ЕАС
-				</div>
-			</div>
+                {% if product_images|length > 1 %}
+                <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-md text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-md text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
 
-			<div class="flex flex-col sm:flex-row gap-4">
-				<a id="order-link" href="{% url 'order_page' %}" class="flex-1 btn-primary text-center py-4 text-lg">
-				Оформить заявку на этот товар
-				</a>
-				<a href="tel:+79020923072" class="flex-1 btn-outline-primary text-center py-4 text-lg">
-				Уточнить детали по телефону
-				</a>
-			</div>
-			</div>
-		</div>
-	</div>
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                    {% for img in product_images %}
+                    <button onclick="goToSlide({{ forloop.counter0 }})" class="slider-dot w-2.5 h-2.5 rounded-full bg-white/50 transition-colors hover:bg-white"></button>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div>
+                <span class="text-primary font-bold uppercase tracking-wider text-sm mb-2 block">{{ product.category.name }}</span>
+                <h1 class="text-4xl font-bold text-gray-900 mb-6">{{ product.name }}</h1>
+                <p class="text-gray-600 text-lg leading-relaxed mb-8">{{ product.description }}</p>
+
+                <div class="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-8">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Технические характеристики
+                    </h3>
+                    <div class="divide-y divide-gray-200">
+                        {% for characteristic in characteristics %}
+                        <div class="py-3 flex justify-between items-center">
+                            <span class="text-gray-600 font-medium">{{ characteristic.name }}</span>
+                            <span class="text-gray-900 font-bold">{{ characteristic.value }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="{% url 'order_page' %}" class="flex-1 btn-primary text-center py-4 text-lg">Оформить заявку</a>
+                    <a href="tel:+79020923072" class="flex-1 btn-outline-primary text-center py-4 text-lg">Позвонить</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
+
