@@ -27,7 +27,7 @@ class CatalogView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['products'] = Product.objects.filter(is_active=True)
-        context['category'] = Category.objects.all()
+        context['categories'] = Category.objects.all()
         return context
 
 

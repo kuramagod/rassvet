@@ -10,7 +10,7 @@
 <!-- Главный экран -->
 <section class="relative h-[80vh] min-h-[600px] flex items-center">
     <div class="absolute inset-0 z-0">
-        <img src="{% static 'images/assets/heroimage.jpg' %}" alt="Пшеничное поле"
+        <img src="{% static 'images/assets/heroimage.webp' %}" alt="Пшеничное поле"
             class="w-full h-full object-cover" />
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
     </div>
@@ -150,7 +150,7 @@
                     <p class="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">{{ product.short_description }}</p>
                     <div class="mt-auto flex gap-3">
                         <a href="{{ product.get_absolute_url }}" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200 transition text-sm font-medium">Подробнее</a>
-                        <a href="order.html" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-primary text-white rounded hover:bg-primary-light transition text-sm font-medium group/btn">Заказать
+                        <a href="{% url 'order_page' %}" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-primary text-white rounded hover:bg-primary-light transition text-sm font-medium group/btn">Заказать
                             <svg class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
@@ -192,7 +192,7 @@
 
 <!-- Секция CTA  -->
 <section class="py-24 bg-earth relative overflow-hidden">
-    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')] opacity-10">
+    <div class="absolute inset-0 opacity-10" style="background-image: url('{% static 'images/assets/wood-pattern.png' %}'); background-repeat: repeat;">
     </div>
     <div class="container mx-auto px-4 relative z-10 text-center">
         <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Готовы к сотрудничеству?</h2>
