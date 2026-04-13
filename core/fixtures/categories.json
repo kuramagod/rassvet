@@ -1,0 +1,34 @@
+[
+{
+  "model": "core.category",
+  "pk": 1,
+  "fields": {
+    "name": "Зерновые культуры",
+    "slug": "zernovye-kultury"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 2,
+  "fields": {
+    "name": "Масличные культуры и масла",
+    "slug": "maslichnye-kultury-i-masla"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 3,
+  "fields": {
+    "name": "Семенной материал",
+    "slug": "semennoy-material"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 4,
+  "fields": {
+    "name": "Продукты переработки (Жмыхи и шроты)",
+    "slug": "produkty-pererabotki"
+  }
+}
+]

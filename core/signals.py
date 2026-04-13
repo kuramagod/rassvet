@@ -7,6 +7,7 @@ def create_initial_data(sender, **kwargs):
     if sender.name != 'core':
         return
     
+    created_count = 0
 
     DeliveryType = apps.get_model('core', 'DeliveryType')
     RequestStatus = apps.get_model('core', 'RequestStatus')

@@ -1,0 +1,902 @@
+[
+  {
+    "model": "core.productcharacteristic",
+    "pk": 1,
+    "fields": {
+      "name": "Клейковина",
+      "value": "23%",
+      "product": 1
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 2,
+    "fields": {
+      "name": "Натура зерна",
+      "value": "780 г/л",
+      "product": 1
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 3,
+    "fields": {
+      "name": "Содержание белка",
+      "value": "12.5%",
+      "product": 1
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 4,
+    "fields": {
+      "name": "Влажность",
+      "value": "14%",
+      "product": 1
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 5,
+    "fields": {
+      "name": "Сорная примесь",
+      "value": "1.5%",
+      "product": 1
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 6,
+    "fields": {
+      "name": "Сырой протеин",
+      "value": "12%",
+      "product": 2
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 7,
+    "fields": {
+      "name": "Энергетическая ценность",
+      "value": "11.5 МДж",
+      "product": 2
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 8,
+    "fields": {
+      "name": "Клетчатка",
+      "value": "5.5%",
+      "product": 2
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 9,
+    "fields": {
+      "name": "Влажность",
+      "value": "13.5%",
+      "product": 2
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 10,
+    "fields": {
+      "name": "Сорная примесь",
+      "value": "1%",
+      "product": 2
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 11,
+    "fields": {
+      "name": "Число падения",
+      "value": "180 с",
+      "product": 3
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 12,
+    "fields": {
+      "name": "Натура зерна",
+      "value": "710 г/л",
+      "product": 3
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 13,
+    "fields": {
+      "name": "Влажность",
+      "value": "14%",
+      "product": 3
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 14,
+    "fields": {
+      "name": "Содержание крахмала",
+      "value": "58%",
+      "product": 3
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 15,
+    "fields": {
+      "name": "Экстрактивность",
+      "value": "78%",
+      "product": 3
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 16,
+    "fields": {
+      "name": "Пленчатость",
+      "value": "24%",
+      "product": 4
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 17,
+    "fields": {
+      "name": "Натура зерна",
+      "value": "500 г/л",
+      "product": 4
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 18,
+    "fields": {
+      "name": "Содержание жира",
+      "value": "6.2%",
+      "product": 4
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 19,
+    "fields": {
+      "name": "Влажность",
+      "value": "13.5%",
+      "product": 4
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 20,
+    "fields": {
+      "name": "Сорная примесь",
+      "value": "1%",
+      "product": 4
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 21,
+    "fields": {
+      "name": "Масличность",
+      "value": "50%",
+      "product": 5
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 22,
+    "fields": {
+      "name": "Кислотное число",
+      "value": "1.5 мг КОН/г",
+      "product": 5
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 23,
+    "fields": {
+      "name": "Влажность",
+      "value": "8%",
+      "product": 5
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 24,
+    "fields": {
+      "name": "Сорная примесь",
+      "value": "2%",
+      "product": 5
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 25,
+    "fields": {
+      "name": "Крупность",
+      "value": ">80%",
+      "product": 5
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 26,
+    "fields": {
+      "name": "Масличность",
+      "value": "45%",
+      "product": 6
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 27,
+    "fields": {
+      "name": "Эруковая кислота",
+      "value": "<2%",
+      "product": 6
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 28,
+    "fields": {
+      "name": "Глюкозинолаты",
+      "value": "12 мкмоль/г",
+      "product": 6
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 29,
+    "fields": {
+      "name": "Влажность",
+      "value": "8%",
+      "product": 6
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 30,
+    "fields": {
+      "name": "Сорная примесь",
+      "value": "1.5%",
+      "product": 6
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 31,
+    "fields": {
+      "name": "Содержание белка",
+      "value": "38%",
+      "product": 7
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 32,
+    "fields": {
+      "name": "Содержание жира",
+      "value": "19%",
+      "product": 7
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 33,
+    "fields": {
+      "name": "Влажность",
+      "value": "12%",
+      "product": 7
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 34,
+    "fields": {
+      "name": "Сорная примесь",
+      "value": "1%",
+      "product": 7
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 35,
+    "fields": {
+      "name": "ГМО",
+      "value": "Не обнаружено",
+      "product": 7
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 36,
+    "fields": {
+      "name": "Масличность",
+      "value": "42%",
+      "product": 8
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 37,
+    "fields": {
+      "name": "Кислотное число",
+      "value": "2.0 мг КОН/г",
+      "product": 8
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 38,
+    "fields": {
+      "name": "Влажность",
+      "value": "9%",
+      "product": 8
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 39,
+    "fields": {
+      "name": "Сорная примесь",
+      "value": "1.5%",
+      "product": 8
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 40,
+    "fields": {
+      "name": "Цвет семян",
+      "value": "Коричневый",
+      "product": 8
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 41,
+    "fields": {
+      "name": "Кислотное число",
+      "value": "1.8 мг КОН/г",
+      "product": 9
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 42,
+    "fields": {
+      "name": "Перекисное число",
+      "value": "2.0 ммоль/кг",
+      "product": 9
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 43,
+    "fields": {
+      "name": "Влажность",
+      "value": "0.2%",
+      "product": 9
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 44,
+    "fields": {
+      "name": "Цветное число",
+      "value": "15 мг йода",
+      "product": 9
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 45,
+    "fields": {
+      "name": "Массовая доля фосфора",
+      "value": "0.05%",
+      "product": 9
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 46,
+    "fields": {
+      "name": "Сахаристость",
+      "value": "17.5%",
+      "product": 10
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 47,
+    "fields": {
+      "name": "Чистота сока",
+      "value": "86%",
+      "product": 10
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 48,
+    "fields": {
+      "name": "Содержание азота",
+      "value": "0.8%",
+      "product": 10
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 49,
+    "fields": {
+      "name": "Масса корнеплода",
+      "value": "600-800 г",
+      "product": 10
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 50,
+    "fields": {
+      "name": "Влажность",
+      "value": "75%",
+      "product": 10
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 51,
+    "fields": {
+      "name": "Содержание крахмала",
+      "value": "68%",
+      "product": 11
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 52,
+    "fields": {
+      "name": "Натура зерна",
+      "value": "760 г/л",
+      "product": 11
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 53,
+    "fields": {
+      "name": "Влажность",
+      "value": "14%",
+      "product": 11
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 54,
+    "fields": {
+      "name": "Сорная примесь",
+      "value": "1%",
+      "product": 11
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 55,
+    "fields": {
+      "name": "Зерновая примесь",
+      "value": "3%",
+      "product": 11
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 56,
+    "fields": {
+      "name": "Влажность",
+      "value": "65%",
+      "product": 12
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 57,
+    "fields": {
+      "name": "pH",
+      "value": "3.8",
+      "product": 12
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 58,
+    "fields": {
+      "name": "Кормовых единиц",
+      "value": "0.22 к.ед.",
+      "product": 12
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 59,
+    "fields": {
+      "name": "Содержание протеина",
+      "value": "8.5%",
+      "product": 12
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 60,
+    "fields": {
+      "name": "Длина резки",
+      "value": "3-5 см",
+      "product": 12
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 61,
+    "fields": {
+      "name": "Сырой протеин",
+      "value": "39%",
+      "product": 13
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 62,
+    "fields": {
+      "name": "Сырой жир",
+      "value": "7%",
+      "product": 13
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 63,
+    "fields": {
+      "name": "Клетчатка",
+      "value": "20%",
+      "product": 13
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 64,
+    "fields": {
+      "name": "Влажность",
+      "value": "9%",
+      "product": 13
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 65,
+    "fields": {
+      "name": "Форма выпуска",
+      "value": "Гранулы 6 мм",
+      "product": 13
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 66,
+    "fields": {
+      "name": "Сырой протеин",
+      "value": "45%",
+      "product": 14
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 67,
+    "fields": {
+      "name": "Сырой жир",
+      "value": "2%",
+      "product": 14
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 68,
+    "fields": {
+      "name": "Клетчатка",
+      "value": "6%",
+      "product": 14
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 69,
+    "fields": {
+      "name": "Влажность",
+      "value": "9%",
+      "product": 14
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 70,
+    "fields": {
+      "name": "Уреазная активность",
+      "value": "0.1 мг NН3/г",
+      "product": 14
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 71,
+    "fields": {
+      "name": "Влажность",
+      "value": "14%",
+      "product": 15
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 72,
+    "fields": {
+      "name": "Сорная примесь",
+      "value": "0.5%",
+      "product": 15
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 73,
+    "fields": {
+      "name": "Ядрица",
+      "value": "98%",
+      "product": 15
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 74,
+    "fields": {
+      "name": "Натура",
+      "value": "640 г/л",
+      "product": 15
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 75,
+    "fields": {
+      "name": "Цвет",
+      "value": "Золотистый",
+      "product": 15
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 76,
+    "fields": {
+      "name": "Сырой протеин",
+      "value": "21%",
+      "product": 16
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 77,
+    "fields": {
+      "name": "Крахмал",
+      "value": "45%",
+      "product": 16
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 78,
+    "fields": {
+      "name": "Влажность",
+      "value": "14%",
+      "product": 16
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 79,
+    "fields": {
+      "name": "Сорная примесь",
+      "value": "0.7%",
+      "product": 16
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 80,
+    "fields": {
+      "name": "Размер зерен",
+      "value": "5-7 мм",
+      "product": 16
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 81,
+    "fields": {
+      "name": "Кислотное число",
+      "value": "4 мг КОН/г",
+      "product": 17
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 82,
+    "fields": {
+      "name": "Влажность",
+      "value": "0.2%",
+      "product": 17
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 83,
+    "fields": {
+      "name": "Температура вспышки",
+      "value": "240°C",
+      "product": 17
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 84,
+    "fields": {
+      "name": "Содержание серы",
+      "value": "0.01%",
+      "product": 17
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 85,
+    "fields": {
+      "name": "Цетановая температура",
+      "value": "35",
+      "product": 17
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 86,
+    "fields": {
+      "name": "Сырой протеин",
+      "value": "11%",
+      "product": 18
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 87,
+    "fields": {
+      "name": "Натура зерна",
+      "value": "760 г/л",
+      "product": 18
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 88,
+    "fields": {
+      "name": "Влажность",
+      "value": "14%",
+      "product": 18
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 89,
+    "fields": {
+      "name": "Содержание крахмала",
+      "value": "60%",
+      "product": 18
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 90,
+    "fields": {
+      "name": "Сорная примесь",
+      "value": "2%",
+      "product": 18
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 91,
+    "fields": {
+      "name": "Всхожесть",
+      "value": "96%",
+      "product": 19
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 92,
+    "fields": {
+      "name": "Чистота",
+      "value": "99.5%",
+      "product": 19
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 93,
+    "fields": {
+      "name": "Энергия прорастания",
+      "value": "92%",
+      "product": 19
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 94,
+    "fields": {
+      "name": "Масса 1000 зерен",
+      "value": "45 г",
+      "product": 19
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 95,
+    "fields": {
+      "name": "Класс",
+      "value": "Суперэлита",
+      "product": 19
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 96,
+    "fields": {
+      "name": "Теплотворная способность",
+      "value": "4200 ккал/кг",
+      "product": 20
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 97,
+    "fields": {
+      "name": "Зольность",
+      "value": "3%",
+      "product": 20
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 98,
+    "fields": {
+      "name": "Влажность",
+      "value": "10%",
+      "product": 20
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 99,
+    "fields": {
+      "name": "Диаметр гранул",
+      "value": "8 мм",
+      "product": 20
+    }
+  },
+  {
+    "model": "core.productcharacteristic",
+    "pk": 100,
+    "fields": {
+      "name": "Плотность насыпная",
+      "value": "600 кг/м³",
+      "product": 20
+    }
+  }
+]
