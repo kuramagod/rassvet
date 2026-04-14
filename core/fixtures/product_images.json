@@ -1,0 +1,74 @@
+[
+  {
+    "model": "core.productimages",
+    "pk": 1,
+    "fields": {
+      "image": "images/products/sunflower.webp",
+      "is_main": true,
+      "product": 5
+    }
+  },
+  {
+    "model": "core.productimages",
+    "pk": 2,
+    "fields": {
+      "image": "images/products/sunflower_field.webp",
+      "is_main": false,
+      "product": 5
+    }
+  },
+  {
+    "model": "core.productimages",
+    "pk": 3,
+    "fields": {
+      "image": "images/products/sugar_beet.webp",
+      "is_main": true,
+      "product": 10
+    }
+  },
+  {
+    "model": "core.productimages",
+    "pk": 4,
+    "fields": {
+      "image": "images/products/sugar_beet_harvest.webp",
+      "is_main": false,
+      "product": 10
+    }
+  },
+  {
+    "model": "core.productimages",
+    "pk": 5,
+    "fields": {
+      "image": "images/products/buckwheat.webp",
+      "is_main": true,
+      "product": 15
+    }
+  },
+  {
+    "model": "core.productimages",
+    "pk": 6,
+    "fields": {
+      "image": "images/products/buckwheat_field.webp",
+      "is_main": false,
+      "product": 15
+    }
+  },
+  {
+    "model": "core.productimages",
+    "pk": 7,
+    "fields": {
+      "image": "images/products/sunflower_hulls.webp",
+      "is_main": true,
+      "product": 20
+    }
+  },
+  {
+    "model": "core.productimages",
+    "pk": 8,
+    "fields": {
+      "image": "images/products/sunflower_hulls_pellets.webp",
+      "is_main": false,
+      "product": 20
+    }
+  }
+]
