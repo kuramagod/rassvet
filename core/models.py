@@ -74,6 +74,7 @@ class ProductImages(models.Model):
         return self.product.name
 
     class Meta:
+        ordering = ['-is_main']
         verbose_name = "Изображение товара"
         verbose_name_plural = "Изображения товаров"
 

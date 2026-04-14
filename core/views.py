@@ -40,8 +40,8 @@ class ProductPage(DetailView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.prefetch_related(
-            'characteristics', 
-            'images' 
+            'characteristics',
+            'images'
         )
 
     def get_context_data(self, **kwargs):
