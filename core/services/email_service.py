@@ -12,10 +12,10 @@ class EmailService:
         email = EmailMessage(
             subject=f"Новая заявка {request_obj.code}",
             body=f"Поступила новая заявка от {request_obj.client.company_name}",
-            from_email=settings.DEFAULT_FROM_EMAIL, # Явное указание
+            from_email=settings.DEFAULT_FROM_EMAIL,
             to=["rassvet-info-vlg@mail.ru"]
         )
         
         email.attach_file(file_path.strip())
         
-        email.send(fail_silently=False)
+        email.send(fail_silently=True)

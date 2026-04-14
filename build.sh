@@ -9,4 +9,6 @@ python manage.py loaddata characteristics.json || true
 python manage.py loaddata news.json || true
 python manage.py loaddata product_images.json || true
 
+python manage.py createsuperuser --noinput || true
+
 python manage.py collectstatic --noinput

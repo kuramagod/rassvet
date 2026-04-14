@@ -15,4 +15,6 @@ urlpatterns = [
     path("api/create_message/", views.contact_message, name="contact_message"),
     path("api/create_request/", views.CreateOrderView.as_view(), name="create_request"),
     path("api/download-waybill/<int:request_id>/", views.DownloadWaybillView.as_view(), name="download_waybill"),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
