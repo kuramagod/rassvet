@@ -4,10 +4,7 @@ pip install -r requirements.txt
 python manage.py migrate
 
 python manage.py loaddata categories.json || true
-python manage.py loaddata products.json || true
 python manage.py loaddata characteristics.json || true
-python manage.py loaddata news.json || true
-python manage.py loaddata product_images.json || true
 
 python manage.py createsuperuser --noinput || true
 
