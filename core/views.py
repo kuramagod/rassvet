@@ -16,7 +16,7 @@ from .services.email_service import EmailService
 
 
 def home_page(request):
-    products = Product.objects.filter(is_active=True)[:3]   
+    products = Product.objects.filter(is_active=True).select_related('category')[:3]   
     news = News.objects.all() 
     return render(request, "core/index.html", {"products": products, "news": news})
 
@@ -26,7 +26,7 @@ class CatalogView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['products'] = Product.objects.filter(is_active=True)
+        context['products'] = Product.objects.filter(is_active=True).select_related('category')
         context['categories'] = Category.objects.all()
         return context
 
@@ -39,15 +39,13 @@ class ProductPage(DetailView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.prefetch_related(
+        return queryset.select_related('category').prefetch_related(
             'characteristics',
             'images'
         )
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['characteristics'] = self.object.characteristics.all()
-        context['product_images'] = self.object.images.all()
         return context
 
 
