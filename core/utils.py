@@ -55,46 +55,64 @@ def generate_waybill(request_obj):
         "total_sum": f"{total_sum:.2f}",
     }
     
-    # Создаем временный файл для рендера
-    with tempfile.NamedTemporaryFile(mode='wb', suffix='.docx', delete=True) as tmp_render:
+    # Используем временный файл в системной temp папке
+    with tempfile.NamedTemporaryFile(mode='w+b', suffix='.docx', delete=False) as tmp_render:
         doc.render(context)
         doc.save(tmp_render.name)
-        
-        # Загружаем предварительный документ
-        temp_doc = Document(tmp_render.name)
+        tmp_render_path = tmp_render.name
     
-    # Очищаем от тегов
-    for table in temp_doc.tables:
-        rows_to_delete = []
-        for i, row in enumerate(table.rows):
-            row_text = ' '.join(cell.text for cell in row.cells)
+    try:
+        # Загружаем документ для очистки
+        temp_doc = Document(tmp_render_path)
+        
+        # Очищаем от тегов
+        for table in temp_doc.tables:
+            rows_to_delete = []
+            for i, row in enumerate(table.rows):
+                row_text = ' '.join(cell.text for cell in row.cells)
+                
+                if '{% for' in row_text or '{% endfor' in row_text:
+                    rows_to_delete.append(i)
+                if row_text.strip() in ['', '-', '|', '+---', '{% for item in items %}', '{% endfor %}']:
+                    rows_to_delete.append(i)
             
-            if '{% for' in row_text or '{% endfor' in row_text:
-                rows_to_delete.append(i)
-            if row_text.strip() in ['', '-', '|', '+---', '{% for item in items %}', '{% endfor %}']:
-                rows_to_delete.append(i)
+            for i in sorted(rows_to_delete, reverse=True):
+                table._element.remove(table.rows[i]._element)
         
-        for i in sorted(rows_to_delete, reverse=True):
-            table._element.remove(table.rows[i]._element)
-    
-    # Сохраняем финальный документ в BytesIO и загружаем в Cloudinary
-    with io.BytesIO() as final_buffer:
-        temp_doc.save(final_buffer)
-        final_buffer.seek(0)
+        with tempfile.NamedTemporaryFile(mode='w+b', suffix='.docx', delete=False) as tmp_final:
+            temp_doc.save(tmp_final.name)
+            tmp_final_path = tmp_final.name
         
-        # Загружаем в Cloudinary
         upload_result = cloudinary.uploader.upload(
-            final_buffer.getvalue(),
-            resource_type="raw",
+            tmp_final_path,
+            resource_type="raw", 
             public_id=f"invoices/nakladnaya_{request_obj.id}",
             folder="invoices",
-            use_filename=False,
+            use_filename=True,
             unique_filename=False,
-            overwrite=True
+            overwrite=True,
+            format="docx",
+            resource_type="auto"
         )
-    
-    # Сохраняем URL в объекте Request
-    request_obj.waybill_url = upload_result['secure_url']
-    request_obj.save(update_fields=['waybill_url'])
-    
-    return upload_result['secure_url']
+        
+        request_obj.waybill_url = upload_result['secure_url']
+        request_obj.save(update_fields=['waybill_url'])
+        
+        cloudinary.uploader.rename(
+            f"invoices/nakladnaya_{request_obj.id}",
+            f"invoices/nakladnaya_{request_obj.id}.docx",
+            resource_type="raw"
+        )
+        
+        correct_url = f"https://res.cloudinary.com/{settings.CLOUDINARY_STORAGE['CLOUD_NAME']}/raw/upload/invoices/nakladnaya_{request_obj.id}.docx"
+        request_obj.waybill_url = correct_url
+        request_obj.save(update_fields=['waybill_url'])
+        
+        return correct_url
+        
+    finally:
+        import os
+        if os.path.exists(tmp_render_path):
+            os.remove(tmp_render_path)
+        if os.path.exists(tmp_final_path):
+            os.remove(tmp_final_path)
