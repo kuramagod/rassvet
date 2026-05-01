@@ -61,6 +61,8 @@ def generate_waybill(request_obj):
         doc.save(tmp_render.name)
         tmp_render_path = tmp_render.name
     
+    tmp_final_path = None
+    
     try:
         # Загружаем документ для очистки
         temp_doc = Document(tmp_render_path)
@@ -85,29 +87,16 @@ def generate_waybill(request_obj):
         
         upload_result = cloudinary.uploader.upload(
             tmp_final_path,
-            resource_type="raw", 
-            public_id=f"invoices/nakladnaya_{request_obj.id}",
+            resource_type="raw",
+            public_id=f"nakladnaya_{request_obj.id}",
             folder="invoices",
-            use_filename=True,
-            unique_filename=False,
             overwrite=True,
-            format="docx",
         )
         
-        request_obj.waybill_url = upload_result['secure_url']
-        request_obj.save(update_fields=['waybill_url'])
-        
-        cloudinary.uploader.rename(
-            f"invoices/nakladnaya_{request_obj.id}",
-            f"invoices/nakladnaya_{request_obj.id}.docx",
-            resource_type="raw"
-        )
-        
-        correct_url = f"https://res.cloudinary.com/{settings.CLOUDINARY_STORAGE['CLOUD_NAME']}/raw/upload/invoices/nakladnaya_{request_obj.id}.docx"
-        request_obj.waybill_url = correct_url
-        request_obj.save(update_fields=['waybill_url'])
-        
-        return correct_url
+        request_obj.waybill_url = upload_result["secure_url"]
+        request_obj.save(update_fields=["waybill_url"])
+
+        return upload_result["secure_url"]
         
     finally:
         import os
