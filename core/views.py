@@ -1,7 +1,7 @@
 import os
 import json
 
-from django.http import FileResponse, Http404, JsonResponse
+from django.http import HttpResponse, Http404, JsonResponse
 from django.utils.decorators import method_decorator
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -94,8 +94,8 @@ class CreateOrderView(View):
             request_obj = order_service.create_order(data)
             
             try:
-                file_path = WaybillService.get_or_generate_waybill(request_obj)
-                EmailService.send_order_notification(request_obj, file_path)
+                waybill_url = WaybillService.get_waybill_url(request_obj)
+                EmailService.send_order_notification(request_obj, waybill_url)
             except Exception as e:
                 print(f"Error generating waybill or sending email: {e}")
             
@@ -120,24 +120,19 @@ class CreateOrderView(View):
 class DownloadWaybillView(View):
     def get(self, request, request_id, *args, **kwargs):
         try:
-            try:
-                request_obj = Request.objects.get(id=request_id)
-            except Request.DoesNotExist:
-                raise Http404("Заявка не найдена")
+            request_obj = Request.objects.get(id=request_id)
             
-            file_path = WaybillService.get_or_generate_waybill(request_obj)
+            waybill_url = WaybillService.get_waybill_url(request_obj)
             
-            response = FileResponse(
-                open(file_path, 'rb'),
-                content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                as_attachment=True,
-                filename=f'Накладная_{request_obj.code}_{request_id}.docx'
+            if not waybill_url:
+                raise Http404("Накладная не найдена")
+            
+            return HttpResponse(
+                status=302,
+                headers={'Location': waybill_url}
             )
             
-            response['Content-Length'] = os.path.getsize(file_path)
-            return response
-            
-        except FileNotFoundError as e:
-            raise Http404(str(e))
+        except Request.DoesNotExist:
+            raise Http404("Заявка не найдена")
         except Exception as e:
-            return JsonResponse({'success': False, 'error': f'Ошибка при скачивании файла: {str(e)}'}, status=500)
+            return JsonResponse({'success': False, 'error': str(e)}, status=500)

@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
+import tempfile
 
 load_dotenv()
 
@@ -145,3 +146,5 @@ STORAGES = {
 }
 
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
+
+TEMP_DIR = tempfile.gettempdir()
