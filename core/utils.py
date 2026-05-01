@@ -92,7 +92,6 @@ def generate_waybill(request_obj):
             unique_filename=False,
             overwrite=True,
             format="docx",
-            resource_type="auto"
         )
         
         request_obj.waybill_url = upload_result['secure_url']
