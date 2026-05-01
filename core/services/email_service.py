@@ -34,4 +34,7 @@ class EmailService:
         )
         
         # Отправляем письмо
-        email.send(fail_silently=False)
+        try:
+            email.send(fail_silently=False)
+        except Exception as e:
+            print("EMAIL ERROR:", e)
