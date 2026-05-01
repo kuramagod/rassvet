@@ -19,8 +19,8 @@ class EmailService:
             - Номер заявки: {request_obj.code}
             - Компания: {request_obj.client.company_name}
             - ИНН: {request_obj.client.tin}
-            - Телефон: {request_obj.client.phone}
-            - Email: {request_obj.client.email}
+            - Телефон: {request_obj.contact.phone}
+            - Email: {request_obj.contact.email}
 
             Состав заявки:{items_list}
 
