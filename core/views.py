@@ -46,6 +46,8 @@ class ProductPage(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['characteristics'] = self.object.characteristics.all()
+        context['product_images'] = self.object.images.all()
         return context
 
 
