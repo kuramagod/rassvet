@@ -1,19 +1,14 @@
+import requests
 from django.conf import settings
-from django.core.mail import EmailMessage
-
 
 class EmailService:
     @staticmethod
     def send_order_notification(request_obj, waybill_url):
-        """Отправляет email с ссылкой на Cloudinary"""
-        
         items_list = ""
         for item in request_obj.items.all():
             items_list += f"\n- {item.product.name}: {item.quantity} шт. x {item.price} руб. = {item.price * item.quantity} руб."
-        
-        email = EmailMessage(
-            subject=f"Новая заявка {request_obj.code}",
-            body=f"""
+
+        body = f"""
             Поступила новая заявка от {request_obj.client.company_name}
             Детали заявки:
             - Номер заявки: {request_obj.code}
@@ -28,13 +23,22 @@ class EmailService:
 
             ---
             Это автоматическое сообщение, пожалуйста, не отвечайте на него.
-            """,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            to=["rassvet-info-vlg@mail.ru"]
+        """
+
+        response = requests.post(
+            "https://api.resend.com/emails",
+            headers={
+                "Authorization": f"Bearer {settings.RESEND_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "from": "onboarding@resend.dev",
+                "to": ["rassvet-info-vlg@mail.ru"],
+                "subject": f"Заявка {request_obj.code}",
+                "text": body,
+            },
+            timeout=10
         )
-        
-        # Отправляем письмо
-        try:
-            email.send(fail_silently=False)
-        except Exception as e:
-            print("EMAIL ERROR:", e)
+
+        if response.status_code >= 400:
+            raise Exception(response.text)
