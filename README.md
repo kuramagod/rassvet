@@ -21,7 +21,7 @@
 - **Gunicorn** — WSGI-сервер для запуска приложения в production
 - **WhiteNoise** — обслуживание статических файлов
 - **python-docx** — генерация товарной накладной в формате `.docx`
-- **smtplib** — отправка уведомлений и документов на электронную почту организации
+- **Resend** — отправка уведомлений и документов на электронную почту организации через REST API с использованием официального Python SDK
 
 ### Frontend
 
@@ -70,20 +70,24 @@
 ```
 rassvet/
 ├── config/                  # Конфигурация проекта
-│   ├── settings.py         # Настройки Django
+│   ├── settings.py          # Настройки Django
 │   ├── urls.py              # Корневые URL-адреса
 │   └── wsgi.py / asgi.py
 ├── core/                    # Основное приложение
-│   ├── models.py            # Модели БД
-│   ├── views.py              # Представления (views)
+│   ├── services/
+│        ├── email_services.py   # Отправка email
+│        ├── file_services.py    # Получения накладной
+│        ├── order_services.py   # Обработка заявки
+│   ├── models.py              # Модели БД
+│   ├── views.py               # Представления (views)
 │   ├── urls.py                # URL-адреса приложения
-│   ├── admin.py                # Административная панель
-│   ├── utils.py                 # Генерация накладной, отправка email
-│   ├── signals.py                # Сигналы Django
-│   └── templates/                 # HTML-шаблоны
+│   ├── admin.py               # Административная панель
+│   ├── utils.py               # Генерация накладной
+│   ├── signals.py             # Сигналы Django
+│   └── templates/             # HTML-шаблоны
 ├── static/                  # CSS, JS, изображения
-├── media/                    # Пользовательские медиафайлы
-├── templates/docs/             # Шаблон накладной (.docx)
+├── media/                   # Пользовательские медиафайлы
+├── templates/docs/          # Шаблон накладной (.docx)
 └── manage.py
 ```
 
@@ -101,14 +105,17 @@ rassvet/
 - short_description: str
 - image: str
 - is_active: bool
+- created_at: datetime
+- updated_at: datetime
 ```
 
 ### Client (Клиент)
 ```python
 - id: int
 - company_name: str
-- tin: str          # ИНН
+- tin: str
 - legal_address: str
+- created_at: datetime
 ```
 
 ### Request (Заявка)
@@ -120,6 +127,8 @@ rassvet/
 - delivery_type_id: int (FK)
 - delivery_address: str
 - total_price: Decimal
+- comment: str
+- waybill_url: str
 - created_at: datetime
 ```
 
@@ -189,7 +198,7 @@ rassvet/
 
 ![Админ-панель](screenshots/adminpanel.png)
 
-[Макет в Figma](https://www.figma.com/design/your-figma-link)
+[Макет в Figma](https://www.figma.com/design/eAcvGEnaQEDuJ0XoTVTAok/ooorasvet?node-id=43-2&p=f&t=7EWxGJ9L2aQ9CdVv-0)
 
 ## 🏗 Архитектурные решения
 
