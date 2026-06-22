@@ -151,7 +151,7 @@ rassvet/
 
 1. **Клонировать репозиторий**
 ```bash
-   git clone https://github.com/<username>/rassvet.git
+   git clone https://github.com/kuramagod/rassvet.git
    cd rassvet
 ```
 
