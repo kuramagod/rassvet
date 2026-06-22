@@ -33,7 +33,7 @@ class EmailService:
             },
             json={
                 "from": "onboarding@resend.dev",
-                "to": ["rassvet-info-vlg@mail.ru"],
+                "to": ["example@example.com"],
                 "subject": f"Заявка {request_obj.code}",
                 "text": body,
             },
